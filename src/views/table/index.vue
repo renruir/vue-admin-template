@@ -30,7 +30,7 @@
       </el-table-column>
       <el-table-column label="操作" width="110" align="center">
         <template slot-scope="scope">
-          <el-button type="text">编辑</el-button>
+          <el-button type="text" @click="handleEdit(scope.$index)">编辑</el-button>
           <el-button type="text" @click="handleDelete(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
@@ -42,6 +42,7 @@
 import { getList } from "@/api/table";
 import axios from "axios";
 import { API_UPDATE_KEYWORD_ITEM } from "@/utils/api";
+import { MessageBox } from "element-ui";
 
 export default {
   filters: {
@@ -73,19 +74,43 @@ export default {
       });
     },
 
+    handleEdit(index) {
+      
+    },
+
     handleDelete(index) {
-      console.log("index:", index);
-      console.log("item:", this.list[index]);
-      const res = axios({
-        method: "post",
-        url: API_UPDATE_KEYWORD_ITEM,
-        data: {
-          type: 'text',
-          keyword: this.list[index].inputText,
-          status:'1',
-          content:this.list[index].content
-        }
-      });
+      const that = this;
+      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.list[index].status = "1";
+          const res = axios({
+            url: API_UPDATE_KEYWORD_ITEM,
+            method: "post",
+            data: JSON.stringify(this.list[index]),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8"
+            }
+          });
+          
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+
+          setTimeout(function(){
+            that.fetchData();
+          }, 1000);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     }
   }
 };
