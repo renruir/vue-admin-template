@@ -31,7 +31,7 @@
       <el-table-column label="操作" width="110" align="center">
         <template slot-scope="scope">
           <el-button type="text">编辑</el-button>
-          <el-button type="text"  @click="handleDelete(scope.row.inputText)">删除</el-button>
+          <el-button type="text" @click="handleDelete(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -40,6 +40,8 @@
 
 <script>
 import { getList } from "@/api/table";
+import axios from "axios";
+import { API_UPDATE_KEYWORD_ITEM } from "@/utils/api";
 
 export default {
   filters: {
@@ -65,15 +67,25 @@ export default {
     fetchData() {
       this.listLoading = true;
       getList().then(response => {
-        console.log("response: ", response);
         this.list = response.item;
         console.log("list: ", this.list);
-
         this.listLoading = false;
       });
     },
+
     handleDelete(index) {
       console.log("index:", index);
+      console.log("item:", this.list[index]);
+      const res = axios({
+        method: "post",
+        url: API_UPDATE_KEYWORD_ITEM,
+        data: {
+          type: 'text',
+          keyword: this.list[index].inputText,
+          status:'1',
+          content:this.list[index].content
+        }
+      });
     }
   }
 };
