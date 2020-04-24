@@ -5,6 +5,7 @@ const host = 'http://localhost:8080/web/wechat'
 
 export const API_GET_KEYWORD_LIST = `${host}/get_keyword_list`
 export const API_UPDATE_KEYWORD_ITEM = `${host}/update_keyword_list`
+export const API_INSERT_KEYWORD_ITEM = `${host}/insert_keyword`
 // export const API_LOGIN = `${host}/user/authenticate`
 // export const API_GET_DOC_URL = `${host}/document/url`
 // export const API_GET_PDF_URL = `${host}/document/stream`
