@@ -48,7 +48,12 @@ export default {
         // 要以数组形式展示
         inputText: [
           { required: true, message: "关键词不可为空", trigger: "change" },
-          { min: 2, max: 30, message: "长度在 2 到 30 个字符", trigger: "blur" },
+          {
+            min: 2,
+            max: 30,
+            message: "长度在 2 到 30 个字符",
+            trigger: "blur"
+          },
           { validator: validate, trigger: "blur" }
         ],
         msgType: [
@@ -57,7 +62,12 @@ export default {
         ],
         content: [
           { required: true, message: "回复内容不可为空", trigger: "change" },
-          { min: 2, max: 30, message: "长度在 2 到 30 个字符", trigger: "blur" },
+          {
+            min: 2,
+            max: 30,
+            message: "长度在 2 到 30 个字符",
+            trigger: "blur"
+          },
           { validator: validate, trigger: "blur" }
         ]
       },
@@ -76,19 +86,34 @@ export default {
       // this.$message("submit!");
       let formData = JSON.stringify(this.form);
       console.log("form data: ", this.form.inputText);
-      this.$refs["form"].validate(valid => {
-        console.log("5555555555555");
-        
+      // this.$refs["form"].validate(valid => {
+      //   console.log("5555555555555");
+
+      // });
+
+      const res = axios({
+        url: API_INSERT_KEYWORD_ITEM,
+        method: "post",
+        data: formData,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      }).then(res => {
+        console.log("insert res: ", res.data.errorCode);
+        if (res.data.errorCode == 20000) {
+          this.$router.push({ path: "/keyword/text" });
+          this.$message({
+            type: "success",
+            message: "添加成功!"
+          });
+        } else {
+          this.$message({
+            type: "failed",
+            message: "添加失败!"
+          });
+        }
       });
 
-      // const res = axios({
-      //   url: API_INSERT_KEYWORD_ITEM,
-      //   method: "post",
-      //   data: formData,
-      //   headers: {
-      //     "Content-type": "application/json; charset=UTF-8"
-      //   }
-      // });
     },
     onCancel() {
       this.$message({

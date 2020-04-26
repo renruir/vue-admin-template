@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { getTextList } from "@/api/table";
+import { getImageList } from "@/api/table";
 import axios from "axios";
 import { API_UPDATE_KEYWORD_ITEM } from "@/utils/api";
 import { MessageBox } from "element-ui";
@@ -67,7 +67,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true;
-      getTextList().then(response => {
+      getImageList().then(response => {
         this.list = response.item;
         console.log("list: ", this.list);
         this.listLoading = false;

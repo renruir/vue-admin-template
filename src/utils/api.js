@@ -1,6 +1,6 @@
 // const host = 'http://114.67.123.29:8090'
 // const host = 'http://122.51.220.46:8090'
-const host = 'http://localhost:8080/web/wechat'
+const host = 'http://wx.smnwater.com/web/wechat'
 // const host = window.location.origin
 
 export const API_GET_KEYWORD_LIST = `${host}/get_keyword_list`

@@ -46,46 +46,46 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/manager',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
+      path: 'manager',
+      name: '首页',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '后台管理', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
   {
-    path: '/example',
+    path: '/keyword',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    redirect: '/keyword/list',
+    name: 'keyword',
+    meta: { title: '关键词回复', icon: 'example' },
     children: [
       {
-        path: 'table',
+        path: 'text',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: '表格', icon: 'table' }
+        meta: { title: '文本回复', icon: 'table' }
       },
-      // {
-      //   path: 'tree',
-      //   name: 'Tree',
-      //   component: () => import('@/views/tree/index'),
-      //   meta: { title: 'Tree', icon: 'tree' }
-      // }
+      {
+        path: 'image',
+        name: 'Table',
+        component: () => import('@/views/table/imagelist'),
+        meta: { title: '图片回复', icon: 'tree' }
+      }
     ]
   },
 
   {
-    path: '/form',
+    path: '/keyword',
     component: Layout,
     children: [
       {
-        path: 'index',
+        path: 'addkeyword',
         name: 'Form',
         component: () => import('@/views/form/index'),
-        meta: { title: '表单', icon: 'form' }
+        meta: { title: '新建关键词回复', icon: 'form' }
       }
     ]
   },
